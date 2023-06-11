@@ -1,0 +1,8 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "scripts": {
+    "mongodb": "docker-compose -f docker-compose.mongodb.yml -p mongodb up",
+    "postgresql": "docker-compose -f docker-compose.postgresql.yml -p postgresql up"
+  }
+}

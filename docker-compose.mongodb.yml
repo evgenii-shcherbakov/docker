@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  db:
+    restart: on-failure
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
