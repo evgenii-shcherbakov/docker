@@ -1,0 +1,53 @@
+version: '3.8'
+
+# TODO: improve it (currently 4.2 version of MongoDB)
+
+services:
+  db:
+    image: candis/mongo-replica-set:latest
+    restart: on-failure
+    ports:
+      - 27017:27017
+      - 27018:27018
+      - 27019:27019
+    volumes:
+      - data:/data/db
+
+  # set1:
+  #   image: mongo:latest
+  #   restart: on-failure
+  #   ports:
+  #     - 27017:27017
+  #   expose:
+  #     - 27017
+  #   volumes:
+  #     - data:/data/db
+  #   entrypoint: [
+  #       '/usr/bin/mongod',
+  #       '--bind_ip_all',
+  #       '--replSet',
+  #       'rs0',
+  #       # '--enableMajorityReadConcern',
+  #       # 'false',
+  #     ]
+  #   # command: mongosh --eval 'rs.initiate();'
+  #   # command: mongod --replSet rs0
+  #   networks:
+  #     - db
+
+  # initializer:
+  #   image: mongo:latest
+  #   restart: no
+  #   depends_on:
+  #     - set1
+  #   command: >
+  #     mongosh --host localhost:27017 &&
+  #     mongosh --host set1 --port 27017 --eval 'db = (new Mongo("set1:27017")).getDB("auth"); rs.initiate();'
+  #   networks:
+  #     - db
+
+volumes:
+  data:
+# networks:
+#   db:
+#     driver: bridge

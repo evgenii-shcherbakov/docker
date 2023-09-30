@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "mongodb": "docker-compose -f docker-compose.mongodb.yml -p mongodb up",
+    "mongodb-rs": "docker-compose -f docker-compose.mongodb-rs.yml -p mongodb-rs up --build",
     "postgresql": "docker-compose -f docker-compose.postgresql.yml -p postgresql up"
   }
 }
