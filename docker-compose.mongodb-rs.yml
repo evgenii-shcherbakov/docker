@@ -14,9 +14,27 @@ services:
 
   initializer:
     image: mongo:4.4
+    depends_on:
+      - db
     networks:
       - mongo-network
-    command: /bin/sh -c "sleep 2 && mongo --host db:27017 --eval \"rs.initiate()\""
+    command:
+      - /bin/sh
+      - -c
+      - |
+        sleep 2 && 
+        mongo --host db:27017 --eval "
+        if (!rs.status().ok) {
+          rs.initiate();
+        }
+
+        db = (new Mongo('db:27017')).getDB('local');
+
+        if (db.oplog.rs.stats().maxSize.toNumber() !== 2097152000) {
+          db.adminCommand({ 'replSetResizeOplog': 1, 'size': 2000 });
+          db.runCommand({ 'compact': 'oplog.rs', 'force': true });
+        }
+        "
 
 networks:
   mongo-network:
