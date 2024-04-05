@@ -6,6 +6,7 @@
     "mongodb:rs": "docker-compose -f docker-compose.mongodb-rs.yml -p mongodb-rs up",
     "postgresql": "docker-compose -f docker-compose.postgresql.yml -p postgresql up",
     "nats": "docker-compose -f docker-compose.nats.yml -p nats up",
-    "redis": "docker-compose -f docker-compose.redis.yml -p redis up"
+    "redis": "docker-compose -f docker-compose.redis.yml -p redis up",
+    "kafka": "docker-compose -f docker-compose.kafka.yml -p kafka up"
   }
 }
