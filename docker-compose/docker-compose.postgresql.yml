@@ -2,8 +2,8 @@ version: '3'
 
 services:
   db:
-    restart: on-failure
     image: postgres:latest
+    restart: unless-stopped
     ports:
       - '5432:5432'
     volumes:
